@@ -1,4 +1,5 @@
 <?php
+// $Id$
 $zone_name = "jal.tw";
 $zone_file = "/usr/local/etc/namedb/master/jal.tw";
 $KSK_file = "/usr/local/etc/namedb/key/Kjal.tw.+008+33567.key";
