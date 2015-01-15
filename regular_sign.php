@@ -1,5 +1,5 @@
 <?php
-// $Id$
+
 $zone_name = "jal.tw";
 $zone_file = "/usr/local/etc/namedb/master/jal.tw";
 $KSK_file = "/usr/local/etc/namedb/key/Kjal.tw.+008+33567.key";
@@ -21,7 +21,7 @@ $serial = exec ("/usr/bin/grep serial $zone_file | /usr/bin/awk '{print $1}'");
 //$serial = exec ("nslookup -type=soa jal.tw | grep serial | awk '{print $3}'");
 
 if (empty($serial)){
-  echo "Zone file SOA serial not found\n";
+  echo "Zone file SOA serial not found.\n";
 }else {
   $new_serial = $serial + 1;
   $cmd="/usr/bin/sed -i '' -e 's/$serial/$new_serial/g' $zone_file";
