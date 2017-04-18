@@ -23,8 +23,19 @@ $serial = exec ("/usr/bin/grep serial $zone_file | /usr/bin/awk '{print $1}'");
 if (empty($serial)){
   echo "Zone file SOA serial not found.\n";
 }else {
-  $new_serial = $serial + 1;
+
+  echo "=====> " . date("YmdHis") . "\n";
+
+  $today = date("Ymd");
+  $serial_day = substr($serial, 0, 8);
+  if($today == $serial_day){
+    $new_serial = $serial + 1;
+  }elseif($serial_day < $today){
+    $new_serial = $today . "00";
+  }
+
   $cmd="/usr/bin/sed -i '' -e 's/$serial/$new_serial/g' $zone_file";
+
   exec($cmd);
   echo "$cmd\nserial\t". gettype($new_serial) . "\t$new_serial" . "\n";
   system("/usr/local/sbin/dnssec-signzone -r /dev/random -o $zone_name -k $KSK_file $zone_file $ZSK_file");
